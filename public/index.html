@@ -1,0 +1,673 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="cute">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>HeartEcho — A Harbor for Heartwarming Letters & Notes</title>
+  <meta name="description" content="Send and read heartwarming anonymous letters, comforting notes, and gentle words of kindness to people around the world.">
+  
+  <!-- Google Fonts for 3 Themes -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700&family=Courier+Prime:ital,wght@0,400;0,700;1,400&family=Nunito:wght@400;600;700;800;900&family=Orbitron:wght@500;700;900&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Quicksand:wght@500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+  
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <!-- Ambient background canvas/decorations -->
+  <div class="theme-bg-elements" aria-hidden="true" id="themeBgElements"></div>
+
+  <!-- Navigation Bar -->
+  <header class="site-header" id="siteHeader">
+    <div class="header-inner container">
+      <a href="#hero" class="brand-logo" id="brandLogo">
+        <span class="logo-icon" id="logoIcon">🕊️</span>
+        <div class="logo-text">
+          <span class="logo-title" id="logoTitle">HeartEcho</span>
+          <span class="logo-subtitle" id="logoSubtitle">Letters to the World</span>
+        </div>
+      </a>
+
+      <!-- Theme Switcher -->
+      <div class="theme-control-hub">
+        <span class="theme-hub-label">Style Mood:</span>
+        <div class="theme-buttons" role="radiogroup" aria-label="Website Theme Mode">
+          <button type="button" class="theme-btn active" data-theme-choice="cute" id="themeBtnCute" aria-label="Cute and Bright theme with Dove character">
+            <span class="theme-btn-icon">🕊️</span>
+            <span class="theme-btn-text">Cute & Dove</span>
+          </button>
+          <button type="button" class="theme-btn" data-theme-choice="vintage" id="themeBtnVintage" aria-label="Vintage Parchment theme">
+            <span class="theme-btn-icon">📜</span>
+            <span class="theme-btn-text">Vintage</span>
+          </button>
+          <button type="button" class="theme-btn" data-theme-choice="futuristic" id="themeBtnFuturistic" aria-label="Futuristic Cyber-Holo theme">
+            <span class="theme-btn-icon">🚀</span>
+            <span class="theme-btn-text">Futuristic</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Sound & Quick Actions -->
+      <div class="header-actions">
+        <a href="together.html" class="icon-action-btn together-nav-link" id="togetherNavLink" title="Live rooms">
+          <span>💞</span>
+          <span class="sound-label" id="togetherNavLabel">Together</span>
+        </a>
+        <button type="button" class="icon-action-btn" id="soundToggleBtn" aria-label="Toggle Sound Effects" title="Toggle Sound Effects">
+          <span id="soundIcon">🔔</span>
+          <span class="sound-label">Audio On</span>
+        </button>
+        <a href="#composeSection" class="btn btn-primary nav-write-btn" id="navWriteBtn">
+          <span>✍️ Write a Letter</span>
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <!-- Hero Section -->
+    <section class="hero-section" id="hero">
+      <div class="container hero-container">
+        <div class="hero-content">
+          <div class="hero-badge" id="heroBadge">
+            <span class="badge-sparkle">✨</span>
+            <span id="heroBadgeText">A safe, tender harbor for kind words</span>
+          </div>
+
+          <h1 class="hero-title" id="heroTitle">
+            Leave a gentle whisper for someone who needs it today.
+          </h1>
+
+          <p class="hero-description" id="heroDesc">
+            HeartEcho is an open sanctuary where you can write heartfelt notes, unspoken gratitude,
+            and warm encouragement into the world. Read what strangers have poured from their souls,
+            share your own comforting message, and remind someone that they are never truly alone.
+          </p>
+
+          <div class="hero-ctas">
+            <a href="#composeSection" class="btn btn-primary btn-lg" id="heroWriteCta">
+              <span class="btn-icon">💌</span>
+              <span>Send a Heartfelt Note</span>
+            </a>
+            <a href="#lettersWall" class="btn btn-secondary btn-lg" id="heroReadCta">
+              <span class="btn-icon">📖</span>
+              <span>Read Letters</span>
+            </a>
+            <button type="button" class="btn btn-ghost btn-lg" id="randomLetterBtn">
+              <span class="btn-icon">🎲</span>
+              <span>Surprise Me</span>
+            </button>
+          </div>
+
+          <!-- Mini trust & warmth metrics -->
+          <div class="hero-trust-row">
+            <div class="trust-item">
+              <span class="trust-dot"></span>
+              <span>100% Anonymous & Free</span>
+            </div>
+            <div class="trust-item">
+              <span class="trust-dot"></span>
+              <span>Zero Judgment, Pure Kindness</span>
+            </div>
+            <div class="trust-item">
+              <span class="trust-dot"></span>
+              <span>Instant Public Delivery</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Dynamic Visual Centerpiece (Theme Reactive) -->
+        <div class="hero-visual-wrapper">
+          <!-- Cute Theme Mascot: Animated Fluttering Dove with Letter -->
+          <div class="mascot-container mascot-cute" id="mascotCute">
+            <div class="dove-sky-scene">
+              <div class="floating-cloud cloud-1"></div>
+              <div class="floating-cloud cloud-2"></div>
+              <div class="floating-sparkles">
+                <span class="sparkle s-1">✨</span>
+                <span class="sparkle s-2">💖</span>
+                <span class="sparkle s-3">🌟</span>
+                <span class="sparkle s-4">🌸</span>
+              </div>
+              
+              <!-- SVG Dove Character -->
+              <div class="dove-character" id="doveCharacter">
+                <div class="dove-speech-bubble" id="doveSpeechBubble">
+                  "I deliver your warm wishes across the sky! 🕊️"
+                </div>
+                <svg class="dove-svg" viewBox="0 0 200 180" width="100%" height="100%">
+                  <defs>
+                    <linearGradient id="doveBodyGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                      <stop offset="0%" stop-color="#ffffff"/>
+                      <stop offset="100%" stop-color="#f2f5fc"/>
+                    </linearGradient>
+                    <linearGradient id="doveWingGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                      <stop offset="0%" stop-color="#ffffff"/>
+                      <stop offset="100%" stop-color="#e2ebfc"/>
+                    </linearGradient>
+                    <linearGradient id="envelopeGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                      <stop offset="0%" stop-color="#ff9eb5"/>
+                      <stop offset="100%" stop-color="#ff7597"/>
+                    </linearGradient>
+                    <filter id="softGlow" x="-20%" y="-20%" width="140%" height="140%">
+                      <feDropShadow dx="0" dy="8" stdDeviation="6" flood-color="#ffb8cf" flood-opacity="0.35"/>
+                    </filter>
+                  </defs>
+
+                  <!-- Tail Feathers -->
+                  <g class="dove-tail">
+                    <path d="M 45 105 C 20 115 15 130 10 145 C 30 140 45 130 65 118 Z" fill="#e8effc"/>
+                    <path d="M 50 110 C 25 125 22 145 20 160 C 40 150 55 138 72 122 Z" fill="#dce6fa"/>
+                  </g>
+
+                  <!-- Main Dove Body -->
+                  <g class="dove-body-group" filter="url(#softGlow)">
+                    <path d="M 60 110 C 50 85 70 55 105 50 C 135 46 160 60 170 85 C 175 97 172 115 160 125 C 140 140 90 145 60 110 Z" fill="url(#doveBodyGrad)"/>
+                    <!-- Head & Crown -->
+                    <circle cx="155" cy="70" r="24" fill="url(#doveBodyGrad)"/>
+                    <path d="M 148 50 C 146 40 152 35 156 38 C 160 42 157 48 153 52 Z" fill="#ffccd8"/>
+                    <!-- Cheerful Eye -->
+                    <ellipse cx="163" cy="67" rx="3.5" ry="4" fill="#2d3748"/>
+                    <circle cx="164.5" cy="65.5" r="1.2" fill="#ffffff"/>
+                    <!-- Rosy Cheek Blush -->
+                    <ellipse cx="154" cy="75" rx="5" ry="3.5" fill="#ff9eb5" opacity="0.7"/>
+                    <!-- Golden Beak -->
+                    <path d="M 175 70 L 195 75 L 175 80 Z" fill="#ffb703"/>
+                  </g>
+
+                  <!-- Cute Fluttering Wings -->
+                  <g class="dove-wing dove-wing-back">
+                    <path d="M 95 65 C 110 30 135 10 160 12 C 150 30 138 52 115 70 Z" fill="url(#doveWingGrad)" opacity="0.85"/>
+                  </g>
+                  <g class="dove-wing dove-wing-front">
+                    <path d="M 85 85 C 90 40 120 15 150 18 C 142 45 125 75 98 95 Z" fill="url(#doveWingGrad)"/>
+                    <path d="M 100 80 C 105 52 125 35 142 34" stroke="#d5e2f7" stroke-width="2" fill="none" stroke-linecap="round"/>
+                  </g>
+
+                  <!-- Love Letter Carried in Beak -->
+                  <g class="dove-letter" id="doveLetter">
+                    <rect x="180" y="75" width="24" height="17" rx="2" fill="url(#envelopeGrad)" transform="rotate(15 180 75)"/>
+                    <path d="M 180 75 L 192 85 L 204 75" fill="none" stroke="#fff" stroke-width="1.5" transform="rotate(15 180 75)"/>
+                    <circle cx="192" cy="85" r="2.5" fill="#ffffff" transform="rotate(15 180 75)"/>
+                  </g>
+                </svg>
+              </div>
+            </div>
+          </div>
+
+          <!-- Vintage Theme Centerpiece: Antique Writing Desk with Wax Seal & Scroll -->
+          <div class="mascot-container mascot-vintage" id="mascotVintage">
+            <div class="vintage-desk-scene">
+              <div class="vintage-ink-pot">
+                <div class="quill-pen"></div>
+              </div>
+              <div class="vintage-parchment-scroll">
+                <div class="vintage-wax-stamp-seal">
+                  <span>HE</span>
+                </div>
+                <div class="scroll-lines">
+                  <span class="scroll-line"></span>
+                  <span class="scroll-line"></span>
+                  <span class="scroll-line"></span>
+                  <span class="scroll-line short"></span>
+                </div>
+                <div class="scroll-postmark">POSTAGE PAID • 1892</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Futuristic Theme Centerpiece: Holographic Quantum Transmitter -->
+          <div class="mascot-container mascot-futuristic" id="mascotFuturistic">
+            <div class="cyber-holo-scene">
+              <div class="holo-ring holo-ring-1"></div>
+              <div class="holo-ring holo-ring-2"></div>
+              <div class="holo-ring holo-ring-3"></div>
+              <div class="holo-core">
+                <div class="holo-capsule">
+                  <span class="holo-icon">⚡</span>
+                  <span class="holo-text">NEO-TRANSMIT</span>
+                  <div class="holo-data-stream">
+                    <span></span><span></span><span></span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Daily Prompt Banner -->
+    <section class="prompt-section" id="promptSection">
+      <div class="container">
+        <div class="prompt-card" id="promptCard">
+          <div class="prompt-badge">
+            <span class="prompt-lamp">💡</span>
+            <span class="prompt-badge-title">Today's Warmth Prompt</span>
+          </div>
+          <div class="prompt-content">
+            <h3 class="prompt-question" id="promptQuestion">
+              "What is a quiet act of kindness someone did for you that still warms your heart?"
+            </h3>
+            <p class="prompt-subtext">
+              Inspire someone today. Click below to write a letter sparked by this thought.
+            </p>
+          </div>
+          <button type="button" class="btn btn-outline prompt-action-btn" id="answerPromptBtn">
+            <span>✍️ Answer this Prompt</span>
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- Community Warmth Stats Section -->
+    <section class="stats-section" id="statsSection">
+      <div class="container">
+        <div class="stats-grid">
+          <div class="stat-card">
+            <div class="stat-icon-wrap" id="statIcon1">💌</div>
+            <div class="stat-data">
+              <span class="stat-number" id="statLettersCount">1,428</span>
+              <span class="stat-label">Letters Delivered</span>
+            </div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-icon-wrap" id="statIcon2">❤️</div>
+            <div class="stat-data">
+              <span class="stat-number" id="statSmilesCount">9,835</span>
+              <span class="stat-label">Warmth Reactions Given</span>
+            </div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-icon-wrap" id="statIcon3">🌍</div>
+            <div class="stat-data">
+              <span class="stat-number">42</span>
+              <span class="stat-label">Countries Touched</span>
+            </div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-icon-wrap" id="statIcon4">🕊️</div>
+            <div class="stat-data">
+              <span class="stat-number">100%</span>
+              <span class="stat-label">Free & Anonymous Harbor</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Letter Composer Space ("The Writing Desk") -->
+    <section class="compose-section" id="composeSection">
+      <div class="container">
+        <div class="section-header text-center">
+          <span class="section-badge" id="composerBadge">🕊️ The Writing Desk</span>
+          <h2 class="section-title" id="composerTitle">Pen a Letter to the World</h2>
+          <p class="section-subtitle">
+            Whoever you are writing to, know that your words can illuminate someone's darkest hour.
+          </p>
+        </div>
+
+        <div class="composer-container">
+          <form class="letter-form" id="letterForm" novalidate>
+            <!-- Top Controls: Recipient & Mood -->
+            <div class="form-row form-row-2">
+              <div class="form-group">
+                <label for="recipientInput" class="form-label">
+                  <span class="label-icon">🎯</span> To (Recipient)
+                </label>
+                <input 
+                  type="text" 
+                  id="recipientInput" 
+                  class="form-control" 
+                  placeholder="e.g. Anyone having a tough day, A stranger smiling on the bus, My future self..." 
+                  maxlength="60" 
+                  required
+                >
+                <span class="input-hint">Who should find this letter? (Leave general or specific)</span>
+              </div>
+
+              <div class="form-group">
+                <label for="categorySelect" class="form-label">
+                  <span class="label-icon">🏷️</span> Category / Feeling
+                </label>
+                <select id="categorySelect" class="form-control select-control" required>
+                  <option value="comfort">🌸 Comfort & Healing</option>
+                  <option value="gratitude" selected>💛 Gratitude & Thanks</option>
+                  <option value="encouragement">✨ Hope & Courage</option>
+                  <option value="love">💌 Love & Friendship</option>
+                  <option value="reflection">🍃 Quiet Reflection</option>
+                </select>
+                <span class="input-hint">Select the emotion carrying your words</span>
+              </div>
+            </div>
+
+            <!-- Stamp / Seal Selector -->
+            <div class="form-group stamp-picker-group">
+              <label class="form-label">
+                <span class="label-icon">📮</span> Choose a Decorative Stamp / Seal
+              </label>
+              <div class="stamp-options" id="stampOptions" role="radiogroup" aria-label="Stamp selector">
+                <button type="button" class="stamp-btn active" data-stamp="dove" aria-label="Dove Stamp">
+                  <span class="stamp-icon">🕊️</span>
+                  <span class="stamp-name">Dove Peace</span>
+                </button>
+                <button type="button" class="stamp-btn" data-stamp="heart" aria-label="Heart Stamp">
+                  <span class="stamp-icon">💖</span>
+                  <span class="stamp-name">Warm Heart</span>
+                </button>
+                <button type="button" class="stamp-btn" data-stamp="flower" aria-label="Blossom Stamp">
+                  <span class="stamp-icon">🌸</span>
+                  <span class="stamp-name">Gentle Bloom</span>
+                </button>
+                <button type="button" class="stamp-btn" data-stamp="star" aria-label="Starlight Stamp">
+                  <span class="stamp-icon">⭐</span>
+                  <span class="stamp-name">Night Star</span>
+                </button>
+                <button type="button" class="stamp-btn" data-stamp="coffee" aria-label="Cozy Tea Stamp">
+                  <span class="stamp-icon">☕</span>
+                  <span class="stamp-name">Cozy Cup</span>
+                </button>
+              </div>
+            </div>
+
+            <!-- Writing Paper Area -->
+            <div class="form-group">
+              <label for="messageInput" class="form-label letter-body-label">
+                <span class="label-icon">📝</span> Your Heartfelt Message
+              </label>
+              <div class="letter-paper-wrapper">
+                <div class="letter-paper-header">
+                  <span class="paper-watermark" id="paperWatermark">HeartEcho Stationery</span>
+                  <span class="letter-date" id="composerDatePreview">Today</span>
+                </div>
+                <textarea 
+                  id="messageInput" 
+                  class="letter-textarea" 
+                  rows="6" 
+                  placeholder="Dear friend, take a deep breath. Whatever weight you carry on your shoulders tonight, remember that tomorrow brings a fresh dawn..." 
+                  maxlength="1000"
+                  required
+                ></textarea>
+                <div class="letter-paper-footer">
+                  <span class="char-count" id="charCount">0 / 1000 characters</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Bottom Row: Sender Sign-off & Submit -->
+            <div class="form-row form-row-submit">
+              <div class="form-group sender-group">
+                <label for="senderInput" class="form-label">
+                  <span class="label-icon">🖋️</span> From (Sign-off)
+                </label>
+                <input 
+                  type="text" 
+                  id="senderInput" 
+                  class="form-control" 
+                  placeholder="e.g. A fellow traveler, Someone who understands, Anonymous..." 
+                  maxlength="40"
+                  value="A quiet friend"
+                >
+              </div>
+
+              <div class="submit-action-group">
+                <button type="submit" class="btn btn-primary btn-submit-letter" id="sendLetterBtn">
+                  <span class="btn-text">Fold & Send Letter</span>
+                  <span class="btn-arrow">📨</span>
+                </button>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </section>
+
+    <!-- Letters Wall Section (The Main Feed) -->
+    <section class="letters-section" id="lettersWall">
+      <div class="container">
+        <div class="wall-header-wrapper">
+          <div class="wall-title-area">
+            <span class="section-badge" id="wallBadge">📬 Community Letters</span>
+            <h2 class="section-title" id="wallTitle">The Wall of Heartfelt Notes</h2>
+            <p class="section-subtitle">
+              Every card here was written by someone who wished to send comfort into the world.
+            </p>
+          </div>
+
+          <!-- Controls: Filters, Search, Sort -->
+          <div class="wall-controls">
+            <!-- Search -->
+            <div class="search-box">
+              <span class="search-icon">🔍</span>
+              <input 
+                type="text" 
+                id="searchLettersInput" 
+                class="search-input" 
+                placeholder="Search letters by recipient, text, or author..." 
+                aria-label="Search letters"
+              >
+              <button type="button" class="clear-search-btn" id="clearSearchBtn" aria-label="Clear search" title="Clear search">✕</button>
+            </div>
+
+            <!-- Category Pills Filter -->
+            <div class="category-filters" id="categoryFilters" role="tablist" aria-label="Filter letters by category">
+              <button type="button" class="filter-chip active" data-filter="all">All Notes (<span id="countAll">0</span>)</button>
+              <button type="button" class="filter-chip" data-filter="comfort">🌸 Comfort</button>
+              <button type="button" class="filter-chip" data-filter="gratitude">💛 Gratitude</button>
+              <button type="button" class="filter-chip" data-filter="encouragement">✨ Courage</button>
+              <button type="button" class="filter-chip" data-filter="love">💌 Love</button>
+              <button type="button" class="filter-chip" data-filter="reflection">🍃 Reflection</button>
+            </div>
+
+            <!-- Sorting & Utility -->
+            <div class="wall-actions-row">
+              <div class="sort-wrapper">
+                <label for="sortSelect" class="sort-label">Sort by:</label>
+                <select id="sortSelect" class="sort-select">
+                  <option value="newest" selected>✨ Newest First</option>
+                  <option value="popular">❤️ Most Hearted</option>
+                  <option value="oldest">⏳ Oldest First</option>
+                </select>
+              </div>
+
+              <button type="button" class="btn btn-ghost btn-sm reset-letters-btn" id="resetLettersBtn" title="Restore default sample letters if deleted">
+                🔄 Restore Sample Letters
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Letters Grid -->
+        <div class="letters-grid" id="lettersGrid" aria-live="polite">
+          <!-- Populated by JavaScript -->
+        </div>
+
+        <!-- Empty State (when search or filter yields 0 results) -->
+        <div class="empty-state hidden" id="emptyState">
+          <div class="empty-state-icon" id="emptyStateIcon">🕊️</div>
+          <h3 class="empty-state-title" id="emptyStateTitle">No letters found here yet</h3>
+          <p class="empty-state-desc" id="emptyStateDesc">
+            Be the first soul to write a note under this category, or clear your search to see all warmth.
+          </p>
+          <a href="#composeSection" class="btn btn-primary">
+            <span>✍️ Write the First Letter</span>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- Together: live multiplayer rooms -->
+    <section class="together-section" id="togetherSection">
+      <div class="container">
+        <div class="section-header text-center">
+          <span class="section-badge" id="togetherBadge">💞 Together, live</span>
+          <h2 class="section-title" id="togetherTitle">Some words feel warmer read side by side.</h2>
+          <p class="section-subtitle">
+            Open a room and everyone on the same link is there with you, live.
+          </p>
+        </div>
+
+        <div class="together-grid">
+          <a class="together-card" href="module.html?m=stamps">
+            <span class="together-card-icon">🫂</span>
+            <span class="together-card-kicker">React together</span>
+            <h3 class="together-card-title">Letter Stamp Board</h3>
+            <p class="together-card-text">One letter in the middle. A stamp stays where you leave it. An emote floats up and fades.</p>
+            <span class="together-card-cta">Enter room →</span>
+          </a>
+          <a class="together-card" href="module.html?m=notes">
+            <span class="together-card-icon">📌</span>
+            <span class="together-card-kicker">Write together</span>
+            <h3 class="together-card-title">Postcard Corkboard</h3>
+            <p class="together-card-text">Pin a postcard, write on it, move it. When two hands touch the same card, the board shows who won.</p>
+            <span class="together-card-cta">Enter room →</span>
+          </a>
+          <a class="together-card" href="module.html?m=sketch">
+            <span class="together-card-icon">✏️</span>
+            <span class="together-card-kicker">Draw together</span>
+            <h3 class="together-card-title">Stationery Sketch</h3>
+            <p class="together-card-text">One sheet of letter paper. Each person gets one ink color. Lines appear as they are drawn.</p>
+            <span class="together-card-cta">Enter room →</span>
+          </a>
+        </div>
+
+        <p class="together-foot">
+          Tip: open any letter and choose <strong>Read together</strong> to give it a room of its own.
+        </p>
+      </div>
+    </section>
+
+    <!-- Kindness Pledge / Community Guidelines Section -->
+    <section class="pledge-section" id="pledgeSection">
+      <div class="container">
+        <div class="pledge-card">
+          <div class="pledge-header">
+            <span class="pledge-badge-icon">🌿</span>
+            <h3 class="pledge-title">Our Gentle Promise</h3>
+          </div>
+          <p class="pledge-text">
+            This space exists to soften the world. We believe that a single genuine sentence can save a heavy heart.
+            Every letter here is treated with tenderness, respect, and deep human empathy.
+          </p>
+          <div class="pledge-pillars">
+            <div class="pillar-item">
+              <span class="pillar-icon">🕊️</span>
+              <span class="pillar-text"><strong>Gentle Intent:</strong> Words written to uplift, never to wound.</span>
+            </div>
+            <div class="pillar-item">
+              <span class="pillar-icon">🛡️</span>
+              <span class="pillar-text"><strong>Safe Space:</strong> Freedom to delete or express freely.</span>
+            </div>
+            <div class="pillar-item">
+              <span class="pillar-icon">🌟</span>
+              <span class="pillar-text"><strong>Unconditional Warmth:</strong> A light left on for anyone passing by.</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Modals -->
+  
+  <!-- 1. Full Letter Reading Modal -->
+  <div class="modal-backdrop hidden" id="letterModalBackdrop" role="dialog" aria-modal="true" aria-labelledby="modalRecipient">
+    <div class="letter-modal-card" id="letterModalCard">
+      <button type="button" class="modal-close-btn" id="closeLetterModalBtn" aria-label="Close reading view">✕</button>
+      
+      <div class="modal-letter-envelope-top">
+        <div class="modal-stamp-display" id="modalStamp">🕊️</div>
+        <div class="modal-meta-info">
+          <span class="modal-category-tag" id="modalCategoryTag">🌸 Comfort</span>
+          <span class="modal-date" id="modalDate">May 14, 2026</span>
+        </div>
+      </div>
+
+      <div class="modal-letter-body-area">
+        <h3 class="modal-recipient" id="modalRecipient">To: Anyone feeling weary tonight</h3>
+        <hr class="modal-divider">
+        <p class="modal-letter-content" id="modalContent">
+          <!-- Dynamic full letter text -->
+        </p>
+        <div class="modal-signoff-row">
+          <span class="modal-signoff-label">Warmly,</span>
+          <span class="modal-sender" id="modalSender">— A quiet friend</span>
+        </div>
+      </div>
+
+      <div class="modal-footer-actions">
+        <button type="button" class="btn btn-outline hug-reaction-btn" id="modalHugBtn">
+          <span class="hug-icon">🫂</span>
+          <span>Send a Virtual Hug (<span id="modalHugCount">0</span>)</span>
+        </button>
+        <button type="button" class="btn btn-secondary" id="modalTogetherBtn" title="Open a live room for this letter">
+          <span>💞</span>
+          <span>Read together</span>
+        </button>
+        <button type="button" class="btn btn-ghost" id="modalCloseActionBtn">
+          Close Letter
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- 2. Delete Confirmation Modal -->
+  <div class="modal-backdrop hidden" id="deleteModalBackdrop" role="dialog" aria-modal="true" aria-labelledby="deleteModalTitle">
+    <div class="delete-modal-card">
+      <div class="delete-modal-icon">🗑️</div>
+      <h3 class="delete-modal-title" id="deleteModalTitle">Delete this letter?</h3>
+      <p class="delete-modal-desc">
+        Are you sure you want to remove this letter from the public wall? This action cannot be undone.
+      </p>
+      <div class="delete-modal-actions">
+        <button type="button" class="btn btn-ghost" id="cancelDeleteBtn">Cancel</button>
+        <button type="button" class="btn btn-danger" id="confirmDeleteBtn">Yes, Delete Letter</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Toast Notification System -->
+  <div class="toast-container" id="toastContainer" aria-live="assertive" aria-atomic="true"></div>
+
+  <!-- Footer -->
+  <footer class="site-footer">
+    <div class="container footer-content">
+      <div class="footer-brand">
+        <div class="footer-logo">
+          <span class="footer-logo-icon">🕊️</span>
+          <span class="footer-logo-title">HeartEcho</span>
+        </div>
+        <p class="footer-tagline">
+          Spreading soft warmth, gentle solace, and unspoken love, one letter at a time.
+        </p>
+      </div>
+
+      <div class="footer-links-group">
+        <h4 class="footer-heading">Theme Switcher</h4>
+        <div class="footer-theme-links">
+          <button type="button" class="footer-theme-btn" data-theme-choice="cute">🕊️ Cute & Dove</button>
+          <button type="button" class="footer-theme-btn" data-theme-choice="vintage">📜 Vintage Parchment</button>
+          <button type="button" class="footer-theme-btn" data-theme-choice="futuristic">🚀 Futuristic Holo</button>
+        </div>
+      </div>
+
+      <div class="footer-quote">
+        <p class="quote-text">
+          "Too often we underestimate the power of a touch, a smile, a kind word, or the smallest act of caring."
+        </p>
+        <span class="quote-author">— Leo Buscaglia</span>
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      <div class="container footer-bottom-inner">
+        <span>© 2026 HeartEcho. Designed with love and kindness for Convergence Design.</span>
+        <a href="#hero" class="back-to-top-btn" id="backToTopBtn">Back to top ↑</a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Core Script -->
+  <script src="script.js"></script>
+</body>
+</html>

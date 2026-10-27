@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="cute">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Together Room — HeartEcho</title>
+  <meta name="description" content="A live HeartEcho room. Everyone who opens this link shares the same screen.">
+  <script>
+    try { var t = localStorage.getItem('heartecho_theme'); if (['cute','vintage','futuristic'].indexOf(t) > -1) document.documentElement.setAttribute('data-theme', t); } catch (e) {}
+  </script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700&family=Courier+Prime:ital,wght@0,400;0,700;1,400&family=Nunito:wght@400;600;700;800;900&family=Orbitron:wght@500;700;900&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Quicksand:wght@500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="together.css">
+</head>
+<body class="together-page">
+  <div class="theme-bg-elements" aria-hidden="true"></div>
+
+  <header class="site-header">
+    <div class="header-inner container">
+      <a href="index.html" class="brand-logo">
+        <span class="logo-icon" id="logoIcon">🕊️</span>
+        <div class="logo-text">
+          <span class="logo-title" id="logoTitle">HeartEcho</span>
+          <span class="logo-subtitle" id="logoSubtitle">Together Room</span>
+        </div>
+      </a>
+      <nav class="together-nav">
+        <a href="together.html" class="btn btn-ghost btn-sm">← All rooms</a>
+        <div class="theme-control-hub">
+          <div class="theme-buttons" role="radiogroup" aria-label="Website Theme Mode">
+            <button type="button" class="theme-btn" data-theme-choice="cute" aria-label="Cute theme"><span class="theme-btn-icon">🕊️</span><span class="theme-btn-text">Cute</span></button>
+            <button type="button" class="theme-btn" data-theme-choice="vintage" aria-label="Vintage theme"><span class="theme-btn-icon">📜</span><span class="theme-btn-text">Vintage</span></button>
+            <button type="button" class="theme-btn" data-theme-choice="futuristic" aria-label="Futuristic theme"><span class="theme-btn-icon">🚀</span><span class="theme-btn-text">Futuristic</span></button>
+          </div>
+        </div>
+      </nav>
+    </div>
+  </header>
+
+  <div class="container">
+    <div class="roombar" id="roomBar"></div>
+  </div>
+
+  <main class="container module-layout">
+    <section class="module-main">
+      <div class="module-heading">
+        <span class="section-badge" id="moduleBadge"></span>
+        <h1 class="module-title" id="moduleTitle"></h1>
+        <p class="module-tagline" id="moduleTagline"></p>
+      </div>
+      <div class="module-stage" id="moduleStage"></div>
+    </section>
+    <aside class="module-sidebar" id="moduleSidebar" aria-label="About this interaction"></aside>
+  </main>
+
+  <div class="toast-container" id="toastContainer" aria-live="assertive" aria-atomic="true"></div>
+
+  <script src="together.js"></script>
+  <script>
+    (function () {
+      HE.initTheme();
+      var MODULES = ['stamps', 'notes', 'sketch'];
+      var m = HE.params.get('m');
+      if (MODULES.indexOf(m) === -1) m = 'stamps';
+
+      document.addEventListener('he-module', function (e) {
+        if (e.detail !== m) return;
+        var def = HE.registry[m];
+        document.title = def.title + ' — HeartEcho Together';
+        document.getElementById('moduleBadge').textContent = def.badge;
+        document.getElementById('moduleTitle').textContent = def.title;
+        document.getElementById('moduleTagline').textContent = def.tagline;
+
+        document.getElementById('moduleSidebar').innerHTML =
+          '<section class="side-card">' +
+            '<h2 class="side-heading">Where it comes from</h2>' +
+            '<p class="side-case">' + HE.esc(def.source.name) + '</p>' +
+            '<p class="side-text">' + HE.esc(def.source.text) + '</p>' +
+          '</section>' +
+          '<section class="side-card">' +
+            '<h2 class="side-heading">How every screen stays in sync</h2>' +
+            '<ol class="side-rules">' + def.rules.map(function (r) { return '<li>' + HE.esc(r) + '</li>'; }).join('') + '</ol>' +
+          '</section>' +
+          '<section class="side-card side-card-soft">' +
+            '<h2 class="side-heading">Try it</h2>' +
+            '<ul class="side-howto">' + def.howto.map(function (r) { return '<li>' + HE.esc(r) + '</li>'; }).join('') + '</ul>' +
+            '<p class="side-text">Alone? Open <strong>Room ▾ → One more in a new tab</strong> and play both sides.</p>' +
+          '</section>';
+
+        var room = def.mount(document.getElementById('moduleStage'));
+        HE.renderRoomBar(document.getElementById('roomBar'), room, def.title);
+      });
+
+      var s = document.createElement('script');
+      s.src = 'modules/' + m + '.js';
+      document.body.appendChild(s);
+    })();
+  </script>
+</body>
+</html>

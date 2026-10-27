@@ -1,0 +1,13 @@
+{
+  "name": "heartecho-live",
+  "version": "1.0.0",
+  "description": "HeartEcho with live multiplayer rooms on Cloudflare Workers + Durable Objects (free plan)",
+  "scripts": {
+    "dev": "wrangler dev",
+    "deploy": "wrangler deploy"
+  },
+  "devDependencies": {
+    "wrangler": "^4.153.0"
+  },
+  "private": true
+}

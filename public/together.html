@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="cute">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Together — HeartEcho</title>
+  <meta name="description" content="Three live rooms where people share one screen: stamp a letter, pin postcards, sketch on stationery.">
+  <script>
+    try { var t = localStorage.getItem('heartecho_theme'); if (['cute','vintage','futuristic'].indexOf(t) > -1) document.documentElement.setAttribute('data-theme', t); } catch (e) {}
+  </script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700&family=Courier+Prime:ital,wght@0,400;0,700;1,400&family=Nunito:wght@400;600;700;800;900&family=Orbitron:wght@500;700;900&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Quicksand:wght@500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="together.css">
+</head>
+<body class="together-page">
+  <div class="theme-bg-elements" aria-hidden="true"></div>
+
+  <header class="site-header">
+    <div class="header-inner container">
+      <a href="index.html" class="brand-logo">
+        <span class="logo-icon" id="logoIcon">🕊️</span>
+        <div class="logo-text">
+          <span class="logo-title" id="logoTitle">HeartEcho</span>
+          <span class="logo-subtitle" id="logoSubtitle">Together Room</span>
+        </div>
+      </a>
+      <nav class="together-nav">
+        <a href="index.html" class="btn btn-ghost btn-sm">← Letters</a>
+        <div class="theme-control-hub">
+          <div class="theme-buttons" role="radiogroup" aria-label="Website Theme Mode">
+            <button type="button" class="theme-btn" data-theme-choice="cute" aria-label="Cute theme"><span class="theme-btn-icon">🕊️</span><span class="theme-btn-text">Cute</span></button>
+            <button type="button" class="theme-btn" data-theme-choice="vintage" aria-label="Vintage theme"><span class="theme-btn-icon">📜</span><span class="theme-btn-text">Vintage</span></button>
+            <button type="button" class="theme-btn" data-theme-choice="futuristic" aria-label="Futuristic theme"><span class="theme-btn-icon">🚀</span><span class="theme-btn-text">Futuristic</span></button>
+          </div>
+        </div>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container hub">
+    <section class="hub-intro">
+      <span class="section-badge">💞 Together, live</span>
+      <h1 class="section-title hub-title">Same link, same room.</h1>
+      <p class="section-subtitle hub-sub">
+        Open a room and everyone with the link is there with you. Their stamps, postcards and lines appear as they make them.
+      </p>
+    </section>
+
+    <section class="together-grid" aria-label="Rooms">
+      <a class="together-card" href="module.html?m=stamps">
+        <span class="together-card-icon">🫂</span>
+        <span class="together-card-kicker">React together</span>
+        <h2 class="together-card-title">Letter Stamp Board</h2>
+        <p class="together-card-text">One letter in the middle. A stamp stays where you leave it. An emote floats up and fades.</p>
+        <span class="together-card-cta">Enter room →</span>
+      </a>
+      <a class="together-card" href="module.html?m=notes">
+        <span class="together-card-icon">📌</span>
+        <span class="together-card-kicker">Write together</span>
+        <h2 class="together-card-title">Postcard Corkboard</h2>
+        <p class="together-card-text">Pin a postcard, write on it, move it. When two hands touch the same card, the board shows who won.</p>
+        <span class="together-card-cta">Enter room →</span>
+      </a>
+      <a class="together-card" href="module.html?m=sketch">
+        <span class="together-card-icon">✏️</span>
+        <span class="together-card-kicker">Draw together</span>
+        <h2 class="together-card-title">Stationery Sketch</h2>
+        <p class="together-card-text">One sheet of letter paper. Each person gets one ink color. Lines appear as they are drawn.</p>
+        <span class="together-card-cta">Enter room →</span>
+      </a>
+    </section>
+
+    <section class="hub-steps" aria-label="How rooms work">
+      <div class="hub-step"><span class="hub-step-num">1</span><p><strong>Open a room.</strong> Everyone on the same link shares it.</p></div>
+      <div class="hub-step"><span class="hub-step-num">2</span><p><strong>Alone?</strong> Room ▾ → <em>One more in a new tab</em>.</p></div>
+      <div class="hub-step"><span class="hub-step-num">3</span><p><strong>Want privacy?</strong> Room ▾ → <em>Start a private room</em>, then share that link.</p></div>
+    </section>
+  </main>
+
+  <script src="together.js"></script>
+  <script>HE.initTheme();</script>
+</body>
+</html>
